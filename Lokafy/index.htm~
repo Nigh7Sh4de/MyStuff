@@ -1,0 +1,101 @@
+<html>
+<head>
+    <title>
+        Lokafy User Page
+    </title>
+</head>
+<body>
+
+    <div class="page-header">
+		<a href="http://lokafy.com/">
+			<div class="logo-blue"></div>
+		</a>
+		<a class="help" href="https://lokafy.com/faqs">Help</a>
+	</div>
+
+    <div class="container">
+    
+        <div class="row">
+            
+            <div id="profile" class="pull-left">
+                <img src="images/profile.png" />
+                <span><h2>Traveller McFancypants</h2></span>
+            </div>
+            
+            <div id="nextBooking">
+                <h4>Next booking</h4>    
+            </div>
+        </div>
+        
+        <div class="row">
+            <h4 id="previousBookingsHeader">Previous bookings:</h4>
+            <table id="previousBookings" class="table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>City</th>
+                        <th>Neighbourhood</th>
+                        <th>Duration</th>
+                        <th>Lokafyer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Jan 11, 2016</td>
+                        <td>Toronto</td>
+                        <td>Financial District</td>
+                        <td>2 hours</td>
+                        <td>Ted McTourman</td>
+                    </tr>
+                    <tr>
+                        <td>Jan 09, 2016</td>
+                        <td>Toronto</td>
+                        <td>Historic District</td>
+                        <td>4 hours</td>
+                        <td>Jane Smith</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    
+    </div>
+    
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/city-selection.css">
+    
+    <style>
+    
+    .row {
+        margin-top: 20px;
+        margin-bottom: 40px;
+    }
+        
+    .container {
+        max-width: 60%; 
+        margin: auto;
+    }
+    
+    #profile {
+        text-align: center;
+        margin-right:80px;
+    }
+    
+    #profile h2 {
+        margin: auto;
+    }
+    
+    #profile img {
+        margin: auto;
+        width: 60%
+    }
+    
+    #previousBookingsHeader {
+        margin-bottom: 2px;
+    }
+    
+    
+    </style>
+    
+
+</body>
+</html>
