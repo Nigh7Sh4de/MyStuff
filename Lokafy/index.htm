@@ -14,20 +14,51 @@
 	</div>
 
     <div class="container">
-    
+
         <div class="row">
-            
+
             <div id="profile" class="pull-left">
                 <img src="images/profile.png" />
                 <span><h2>Traveller McFancypants</h2></span>
             </div>
-            
+
             <div id="nextBooking">
-                <h4>Next booking</h4>    
-                
+                <h4>Next booking</h4>
+                <div class="col-md-8">
+                    <div class="well well-lg">
+                        Toronto - Garden District
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Date and Time</div>
+                            <div class="panel-body">
+                                <h1 id="dateTime">Jan 24, 2016<br />5:00PM</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Price<span class="label label-success pull-right">Paid</span></div>
+                            <div class="panel-body">
+                                <h1 id="price">$25.00</h1>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+                    <div id="guidePanel" class="panel panel-default">
+                        <div class="panel-heading">Lokafy Guide: <span>Mark</span></div>
+                        <div class="panel-body">
+                            <img class="img-circle" src="images/guide.jpg" />
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
-        
+
         <div class="row">
             <h4 id="previousBookingsHeader">Previous bookings:</h4>
             <table id="previousBookings" class="table">
@@ -58,45 +89,103 @@
                 </tbody>
             </table>
         </div>
-    
+
     </div>
-    
+
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="css/city-selection.css">
-    
+
     <style>
-    
+
+
     .row {
         margin-top: 20px;
         margin-bottom: 40px;
+        overflow: visible;
     }
-        
+
     .container {
-        max-width: 60%; 
+        max-width: 60%;
         margin: auto;
     }
-    
+
     #profile {
         text-align: center;
-        margin-right:80px;
     }
-    
+
     #profile h2 {
-        margin: auto;
+        margin: 20px auto auto auto;
     }
-    
+
     #profile img {
-        margin: auto;
+        margin: 20px auto auto auto;
         width: 60%
     }
-    
+
+    #nextBooking {
+        margin-left: 25%;
+    }
+
+    #nextBooking h4 {
+        padding-left: 30px;
+    }
+
+    #price {
+        margin: 7px auto 7px auto;
+    }
+
+    #dateTime {
+        margin: -9px auto 7px auto;
+    }
+
+    #nextBooking .well {
+        margin: 0 15px 15px 15px;
+        text-align: center;
+        font-size: 24px;
+        text-shadow: 2px 2px #222222;
+        color: #EEEEEE;
+        background: url('images/toronto-skyline.jpg') no-repeat 0% 58%;
+    }
+
+    #nextBooking .panel {
+        margin-bottom: 0;
+    }
+
+    #nextBooking .panel-body {
+        text-align: center;
+        height: 80px;
+    }
+
+    #guidePanel {
+        height: 220px;
+    }
+
+    #guidePanel img {
+        height: 170px;
+        margin:
+    }
+
+    #guidePanel span {
+        font-weight: bolder;
+    }
+
+    #guidePanel .panel-body {
+        padding: 5px;
+    }
+
     #previousBookingsHeader {
         margin-bottom: 2px;
     }
-    
-    
+
+    * {
+        border-color: #3984c7!important;
+    }
+
+
+
+
     </style>
-    
+
 
 </body>
 </html>
