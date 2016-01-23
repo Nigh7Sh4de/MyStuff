@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "axios": "^0.9.0",
+    "babel-preset-react": "^6.3.13",
+    "babel-register": "^6.4.3",
+    "express": "^4.13.3",
+    "flux": "^2.1.1",
+    "react": "^0.14.6"
+  }
+}
