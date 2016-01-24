@@ -1,23 +1,26 @@
 var React = require('React');
+var ReactDOM = require('react-dom/server')
 
-var indexPage = React.createFactory(require('./src/components/index'));
-var daysPage = React.createFactory(require('./src/components/days'));
-var foodsPage = React.createFactory(require('./src/components/foods'));
+var indexPage = require('./src/components/index');
+var daysPage = require('./src/components/days');
+var foodsPage = require('./src/components/foods');
 
 var Page = {
-    index: indexPage(),
-    days: daysPage(),
-    foods: foodsPage()
+    index: indexPage,
+    days: daysPage,
+    foods: foodsPage
 }
 
-Page.default = Page.index;
+Page.default = Page.days;
 
-Page.Build = function(page) {
-    console.log(page);
-    if (typeof page == String)
+Page.Build = function(page, params) {
+    if (typeof page == "string")
         page = Page[page.toLowerCase()];
-    var s = React.renderToString(indexPage({page: page}));
-    console.log(s);
+
+    if (page == null)
+        return "404";
+
+    var s = ReactDOM.renderToString(Page.index.page({page: React.createFactory(page.page)(params), navs: page.navs, name: page.name}));
     return s;
 }
 
