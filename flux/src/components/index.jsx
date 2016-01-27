@@ -1,9 +1,18 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
 
 var page = React.createClass({
     render: function() {
+
+        var daysPageScriptText = "window.__params__ = "
+                             + JSON.stringify(this.props)
+                             + ";";
+         var daysPageScript = {
+             __html: daysPageScriptText
+         }
+
         return(
-            <html>
+            <html id="html">
                 <head>
                     <title>Super Flux</title>
 
@@ -26,7 +35,11 @@ var page = React.createClass({
                         {this.props.page}
                     </div>
 
-                    <script src={'/components/' + this.props.name + '.js'}></script>
+                    <script src="/react.js"></script>
+
+                    <script dangerouslySetInnerHTML={daysPageScript}></script>
+                    <script src="/index.js"></script>
+
 
                 </body>
             </html>
@@ -34,5 +47,13 @@ var page = React.createClass({
         );
     }
 })
-
+//<script src={'/components/' + this.props.name + '.js'}></script>
 module.exports = { page: React.createFactory(page) }
+
+if (typeof window !== 'undefined') {
+  window.onload = function() {
+    var params = window.__params__;
+    console.log(JSON.stringify(params));
+    ReactDOM.render(React.createElement(params.page, params), document.getElementById('html'));
+  }
+}

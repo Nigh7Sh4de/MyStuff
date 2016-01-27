@@ -23,7 +23,6 @@ var SetCurrentDay = function(id) {
 
 var FoodItem = React.createClass({
     addfood: function() {
-        console.log('Adding food ' + this.props.food.id + ' to day ' + CurrentDay.id);
         CurrentDay.food.push(this.props.food.id);
 
         axios.patch('/days', {
@@ -34,10 +33,6 @@ var FoodItem = React.createClass({
                 this.props.refresh();
         }.bind(this));
 
-        // CurrentDay.food.push(this.props.food.id);
-        // if (this.props.refresh != null)
-        //     this.props.refresh();
-        // return;
     },
     editfood: function(e) {
         redraw(CreateFoodPage,{food:this.props.food});
@@ -115,10 +110,18 @@ var navs = (
 
 
 if (typeof window !== 'undefined') {
-    console.log('drawing things :D');
   window.onload = function() {
-     ReactDOM.render(<FoodItemListPage id="3" />, document.getElementById('reactComponent'));
+      var pageId = 3;
+      ReactDOM.render(<FoodItemListPage id={pageId} />, document.getElementById('reactComponent'));
+    //  ReactDOM.render(<FoodItemListPage id="3" />, document.getElementById('reactComponent'));
   }
 }
 
 module.exports = { page: FoodItemListPage, navs: navs, name: 'foods' };
+
+// if (typeof window !== 'undefined') {
+//   window.onload = function() {
+//     var params = window.__params__;
+//      ReactDOM.render(React.createElement(FoodItemListPage, params), document.getElementById('reactComponent'));
+//   }
+// }

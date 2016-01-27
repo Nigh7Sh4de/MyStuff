@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
 var ReactBootstrap = require('react-bootstrap');
 var _db = require('../../db');
 var _days = _db._days;
@@ -120,8 +121,9 @@ var navs = (
 
 module.exports = { page: DaysPage, navs: navs, name: 'days' };
 
-if (typeof window !== 'undefined') {
-  window.onload = function() {
-    React.renderComponent(<DaysPage />, document.getElementById('reactComponent'));
-  }
-}
+// if (typeof window !== 'undefined') {
+//   window.onload = function() {
+//     var params = window.__params__;
+//     ReactDOM.render(React.createElement(DaysPage, params), document.getElementById('reactComponent'));
+//   }
+// }
