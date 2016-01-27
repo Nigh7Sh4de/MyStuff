@@ -122,3 +122,11 @@ if (typeof window !== 'undefined') {
 }
 
 module.exports = { page: FoodItemListPage, navs: navs, name: 'foods' };
+
+if (typeof window !== 'undefined') {
+    window.onload = function() {
+        var el = React.createElement(FoodItemListPage, window.APP_PROPS);
+        // var el = React.createElement(window.APP_PAGE, window.APP_PROPS);
+        ReactDOM.render(el, document.getElementById('reactComponent'));
+    }
+}
