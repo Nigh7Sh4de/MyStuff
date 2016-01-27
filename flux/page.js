@@ -20,7 +20,7 @@ Page.Build = function(page, params) {
     if (page == null)
         return "404";
 
-    var s = ReactDOM.renderToString(Page.index.page({page: React.createFactory(page.page)(), pageParams: params, navs: page.navs, name: page.name}));
+    var s = ReactDOM.renderToString(Page.index.page({page: React.createFactory(page.page)(params), navs: page.navs, name: page.name}));
     return s;
 }
 
