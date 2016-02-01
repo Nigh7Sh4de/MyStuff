@@ -1,13 +1,18 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var ReactBootstrap = require('react-bootstrap');
-var _db = require('../../db');
-var _days = _db._days;
-var _foods = _db._foods;
-var _settings = _db._settings;
+// var _db = require('../../db');
+// var _db = {
+//     _foods: [],
+//     _settings: {
+//         home_cols: []
+//     }
+// };
+// var _days = [];//_db._days;
+// var _foods = _db._foods;
+// var _settings = _db._settings;
 
-var GetTotal = function(prop, dayId) {
-    var day = _days.findById(dayId);
+var GetTotal = function(prop, day) {
     var total = 0;
     day.food.forEach(function (foodId) {
         var food = _foods.findById(foodId);
@@ -18,7 +23,7 @@ var GetTotal = function(prop, dayId) {
 
 Array.prototype.findById = function(ID) {
     for (var i=0;i<this.length;i++) {
-        if (this[i].id == ID) {
+        if (this[i]._id == ID) {
             return this[i];
         }
     }
@@ -27,21 +32,21 @@ Array.prototype.findById = function(ID) {
 
 var DayItem = React.createClass({
     viewfood: function() {
-        // CurrentDay = _days.findById(this.props.id);
+        // CurrentDay = _days.findById(this.props._id);
         // redraw(FoodItemListPage)
     },
     render: function() {
-        var totals = _settings.home_cols.map(function(c) {
-            var t =  GetTotal(c, this.props.id);
+        var totals = this.props.data.home_cols.map(function(c) {
+            var t =  GetTotal(c, this.props.day);
             return (<td key={c}>{t}</td>);
         }.bind(this));
         return (
-            <tr key={this.props.id}>
+            <tr key={this.props.day._id}>
                 <td>
-                    <a href={"/foods/" + this.props.id} className="btn btn-default"><span className="glyphicon glyphicon-tasks"></span></a>
+                    <a href={"/foods/" + this.props.day._id} className="btn btn-default"><span className="glyphicon glyphicon-tasks"></span></a>
                 </td>
                 <td>
-                    {this.props.date}
+                    {this.props.day.date}
                 </td>
                 {totals}
             </tr>
@@ -50,22 +55,20 @@ var DayItem = React.createClass({
 })
 
 var DayToday = React.createClass({
-    addfood: function() {
-        // CurrentDay = _days.findById(this.props.id);
-        // redraw(FoodItemListPage);
-    },
     render: function() {
-        var totals = _settings.home_cols.map(function(c) {
-            var t =  GetTotal(c, this.props.id);
-            return (<td key={c}>{t}</td>);
+        // console.log('totals:::' + JSON.stringify(this.props.day.totals));
+        var totals = this.props.home_cols.map(function(c) {
+            // console.log('totals[' + c + '] = ' + this.props.day.totals[c]);
+            return (<td key={c}>{this.props.day.totals[c]}</td>);
         }.bind(this));
+
         return (
-            <tr key={this.props.id}>
+            <tr key={this.props.day._id}>
                 <td>
-                    <a href={"/foods/" + this.props.id} className="btn btn-success"><span className="glyphicon glyphicon-plus"></span></a>
+                    <a href={"/foods/" + this.props.day._id} className="btn btn-success"><span className="glyphicon glyphicon-plus"></span></a>
                 </td>
                 <td>
-                    {this.props.date}
+                    {this.props.day.date}
                 </td>
                 {totals}
             </tr>
@@ -78,15 +81,16 @@ var DaysPage = React.createClass({
     render: function() {
 
         var c = 1;
-        var days = _days.map(function(d) {
-            if (c++ < _days.length)
-                return <DayItem date={d.date} total={d.total} id={d.id} key={d.id} />
+        var days = this.props.data.days.map(function(d) {
+            // console.log(c + ':::'  + JSON.stringify(d));
+            if (c++ < this.props.data.days.length)
+                return <DayItem day={d} key={d._id} home_cols={this.props.data.home_cols} />
             else {
-                return <DayToday date={d.date} total={d.total} id={d.id} key={d.id} />
+                return <DayToday day={d} key={d._id} home_cols={this.props.data.home_cols} />
             }
         }.bind(this)).reverse();
 
-        var home_cols = _settings.home_cols.map(function(c) {
+        var home_cols = this.props.data.home_cols.map(function(c) {
             return (<th key={c}>{c}</th>);
         });
 
@@ -124,7 +128,6 @@ module.exports = { page: DaysPage, navs: navs, name: 'days' };
 if (typeof window !== 'undefined') {
     window.onload = function() {
         var el = React.createElement(DaysPage, window.APP_PROPS);
-        // var el = React.createElement(window.APP_PAGE, window.APP_PROPS);
         ReactDOM.render(el, document.getElementById('reactComponent'));
     }
 }

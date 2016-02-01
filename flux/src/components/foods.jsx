@@ -2,13 +2,10 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var ReactBootstrap = require('react-bootstrap');
 var axios = require('axios');
-var _db = require('../../db');
-var _foods = _db._foods;
-var _days = _db._days;
 
 Array.prototype.findById = function(ID) {
     for (var i=0;i<this.length;i++) {
-        if (this[i].id == ID) {
+        if (this[i]._id == ID) {
             return this[i];
         }
     }
@@ -17,27 +14,19 @@ Array.prototype.findById = function(ID) {
 
 CurrentDay = {};
 
-var SetCurrentDay = function(id) {
-    CurrentDay = _days.findById(id);
+SetCurrentDay = function(day) {
+    CurrentDay = day;
 }
 
 var FoodItem = React.createClass({
     addfood: function() {
-        console.log('Adding food ' + this.props.food.id + ' to day ' + CurrentDay.id);
-        CurrentDay.food.push(this.props.food.id);
-
-        axios.patch('/days', {
-            id: CurrentDay.id,
+        CurrentDay.food.push(this.props.food._id);
+        axios.patch('/days/' + CurrentDay._id, {
             food: CurrentDay.food
         }).then(function (response) {
             if (this.props.refresh != null)
                 this.props.refresh();
         }.bind(this));
-
-        // CurrentDay.food.push(this.props.food.id);
-        // if (this.props.refresh != null)
-        //     this.props.refresh();
-        // return;
     },
     editfood: function(e) {
         redraw(CreateFoodPage,{food:this.props.food});
@@ -67,12 +56,11 @@ var FoodItemList = React.createClass({
         this.forceUpdate();
     },
     render: function() {
-        var foods = _foods.map(function(food) {
+        var foods = this.props.data.foods.map(function(food) {
             if (CurrentDay == null)
                 return <FoodItem food={food} key={food.name} />
-
             var count = CurrentDay.food.filter(function(d) {
-                return d == food.id;
+                return d == food._id;
             }).length;
             return <FoodItem count={count} refresh={this.refresh} food={food} key={food.name} />
         }.bind(this));
@@ -93,13 +81,12 @@ var FoodItemList = React.createClass({
 
 var FoodItemListPage = React.createClass({
     render: function() {
-
-        SetCurrentDay(this.props.id);
+        SetCurrentDay(this.props.data.day);
 
         return (
             <div>
                 <ReactBootstrap.Table hover style={{width: "1%", whiteSpace: "nowrap"}}>
-                    <FoodItemList />
+                    <FoodItemList data={this.props.data} />
                 </ReactBootstrap.Table>
             </div>
         );
@@ -113,20 +100,11 @@ var navs = (
     </ul>
 );
 
-
-if (typeof window !== 'undefined') {
-    console.log('drawing things :D');
-  window.onload = function() {
-     ReactDOM.render(<FoodItemListPage id="3" />, document.getElementById('reactComponent'));
-  }
-}
-
 module.exports = { page: FoodItemListPage, navs: navs, name: 'foods' };
 
 if (typeof window !== 'undefined') {
     window.onload = function() {
         var el = React.createElement(FoodItemListPage, window.APP_PROPS);
-        // var el = React.createElement(window.APP_PAGE, window.APP_PROPS);
         ReactDOM.render(el, document.getElementById('reactComponent'));
     }
 }

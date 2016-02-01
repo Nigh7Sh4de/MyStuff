@@ -5,8 +5,8 @@ var page = React.createClass({
     render: function() {
 
         // console.log(JSON.stringify(this.props.pageParams));
-        console.log('GO FUCK YOURSELF WITH A CACTUS YOU PIECE OF SHIT!!!!!!');
-        console.log(JSON.stringify({params: this.props.pageParams}));
+        // console.log('GO FUCK YOURSELF WITH A CACTUS YOU PIECE OF SHIT!!!!!!');
+        // console.log(JSON.stringify({params: this.props.pageParams}));
 
         var innerHtml = {__html: 'window.APP_PROPS = ' + JSON.stringify(this.props.pageParams) + ';'};
 
@@ -36,7 +36,6 @@ var page = React.createClass({
 
                     <script dangerouslySetInnerHTML={innerHtml}></script>
                     <script src={'/components/' + this.props.name + '.js'}></script>
-                    <script src='/index.js'></script>
 
                 </body>
             </html>
