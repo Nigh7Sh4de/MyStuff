@@ -1,1 +1,2 @@
-watchify -t reactify src\components\%1.jsx -o public\components\%1.js
+start watchify -t reactify src\components\days.jsx -o public\components\days.js
+start watchify -t reactify src\components\foods.jsx -o public\components\foods.js
