@@ -6,6 +6,7 @@
     "body-parser": "^1.14.2",
     "express": "^4.13.3",
     "flux": "^2.1.1",
+    "mongojs": "^2.3.0",
     "react": "^0.14.6",
     "react-bootstrap": "^0.28.2",
     "react-dom": "^0.14.6",

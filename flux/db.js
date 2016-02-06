@@ -94,6 +94,7 @@ var _db = {
                 function(err, days) {
                     // console.log('db found the following days: ' + JSON.stringify(days));
                     var c = 0;
+                    var mappedDays = [];
                     var next = function() {
                         c++;
                         if (c >= days.length) {
@@ -101,8 +102,9 @@ var _db = {
                             callback(err, mappedDays);
                         }
                     }
+                    if (days.length == 0)
+                        next();
 
-                    var mappedDays = [];
                     days.forEach(function(day) {
                         var foodIds = day.food.map(function(f) {
                             return mongojs.ObjectId(f);
