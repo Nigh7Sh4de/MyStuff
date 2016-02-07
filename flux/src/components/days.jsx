@@ -96,6 +96,18 @@ var DaysPage = React.createClass({
 
         return (
             <div>
+
+                <nav className="navbar navbar-default">
+                    <div className="container-fluid">
+                        <div className="navbar-header">
+                            <a className="navbar-brand" href="/">Meelz</a>
+                        </div>
+                        <div className="collapse navbar-collapse">
+                            <Navs />
+                        </div>
+                    </div>
+                </nav>
+
                 <ReactBootstrap.Table responsive hover style={{width:"1%", whiteSpace:"nowrap"}}>
                     <thead>
                         <tr>
@@ -109,21 +121,25 @@ var DaysPage = React.createClass({
                     </tbody>
                 </ReactBootstrap.Table>
 
-
+                <script src={'/components/days.js'}></script>
             </div>
         );
     }
 });
 
-var navs = (
-    <ul className="nav navbar-nav">
-        <li key="nd"><a href="#"><span className="glyphicon glyphicon-plus"></span> Day</a></li>
-        <li key="vf"><a href="/foods">View Food</a></li>
-        <li key="ss"><a href="/settings"><span className="glyphicon glyphicon-cog"></span></a></li>
-    </ul>
-);
+var Navs = React.createClass({
+    render: function() {
+        return (
+            <ul className="nav navbar-nav">
+                <li key="nd"><a href="#"><span className="glyphicon glyphicon-plus"></span> Day</a></li>
+                <li key="vf"><a href="/foods">View Food</a></li>
+                <li key="ss"><a href="/settings"><span className="glyphicon glyphicon-cog"></span></a></li>
+            </ul>
+        );
+    }
+});
 
-module.exports = { page: DaysPage, navs: navs, name: 'days' };
+module.exports = React.createFactory(DaysPage);
 
 if (typeof window !== 'undefined') {
     window.onload = function() {

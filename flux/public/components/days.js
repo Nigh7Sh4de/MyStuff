@@ -35067,6 +35067,18 @@ var DaysPage = React.createClass({displayName: "DaysPage",
 
         return (
             React.createElement("div", null, 
+
+                React.createElement("nav", {className: "navbar navbar-default"}, 
+                    React.createElement("div", {className: "container-fluid"}, 
+                        React.createElement("div", {className: "navbar-header"}, 
+                            React.createElement("a", {className: "navbar-brand", href: "/"}, "Meelz")
+                        ), 
+                        React.createElement("div", {className: "collapse navbar-collapse"}, 
+                            React.createElement(Navs, null)
+                        )
+                    )
+                ), 
+
                 React.createElement(ReactBootstrap.Table, {responsive: true, hover: true, style: {width:"1%", whiteSpace:"nowrap"}}, 
                     React.createElement("thead", null, 
                         React.createElement("tr", null, 
@@ -35078,23 +35090,27 @@ var DaysPage = React.createClass({displayName: "DaysPage",
                     React.createElement("tbody", null, 
                         days
                     )
-                )
+                ), 
 
-
+                React.createElement("script", {src: '/components/days.js'})
             )
         );
     }
 });
 
-var navs = (
-    React.createElement("ul", {className: "nav navbar-nav"}, 
-        React.createElement("li", {key: "nd"}, React.createElement("a", {href: "#"}, React.createElement("span", {className: "glyphicon glyphicon-plus"}), " Day")), 
-        React.createElement("li", {key: "vf"}, React.createElement("a", {href: "/foods"}, "View Food")), 
-        React.createElement("li", {key: "ss"}, React.createElement("a", {href: "/settings"}, React.createElement("span", {className: "glyphicon glyphicon-cog"})))
-    )
-);
+var Navs = React.createClass({displayName: "Navs",
+    render: function() {
+        return (
+            React.createElement("ul", {className: "nav navbar-nav"}, 
+                React.createElement("li", {key: "nd"}, React.createElement("a", {href: "#"}, React.createElement("span", {className: "glyphicon glyphicon-plus"}), " Day")), 
+                React.createElement("li", {key: "vf"}, React.createElement("a", {href: "/foods"}, "View Food")), 
+                React.createElement("li", {key: "ss"}, React.createElement("a", {href: "/settings"}, React.createElement("span", {className: "glyphicon glyphicon-cog"})))
+            )
+        );
+    }
+});
 
-module.exports = { page: DaysPage, navs: navs, name: 'days' };
+module.exports = React.createFactory(DaysPage);
 
 if (typeof window !== 'undefined') {
     window.onload = function() {

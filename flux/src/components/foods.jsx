@@ -85,22 +85,40 @@ var FoodItemListPage = React.createClass({
 
         return (
             <div>
+                <nav className="navbar navbar-default">
+                    <div className="container-fluid">
+                        <div className="navbar-header">
+                            <a className="navbar-brand" href="/">Meelz</a>
+                        </div>
+                        <div className="collapse navbar-collapse">
+                            <Navs />
+                        </div>
+                    </div>
+                </nav>
+
                 <ReactBootstrap.Table hover style={{width: "1%", whiteSpace: "nowrap"}}>
                     <FoodItemList data={this.props.data} />
                 </ReactBootstrap.Table>
+
+                <script src={'/components/foods.js'}></script>
+
             </div>
         );
     }
 });
 
-var navs = (
-    <ul className="nav navbar-nav">
-        <li key="bk"><a href="/days">Back</a></li>
-        <li key="cf"><a href="/foods/new"><span className="glyphicon glyphicon-plus"></span> Food</a></li>
-    </ul>
-);
+var Navs = React.createClass({
+    render: function() {
+        return (
+            <ul className="nav navbar-nav">
+                <li key="bk"><a href="/days">Back</a></li>
+                <li key="cf"><a href="/foods/new"><span className="glyphicon glyphicon-plus"></span> Food</a></li>
+            </ul>
+        )
+    }
+});
 
-module.exports = { page: FoodItemListPage, navs: navs, name: 'foods' };
+module.exports = React.createFactory(FoodItemListPage);
 
 if (typeof window !== 'undefined') {
     window.onload = function() {

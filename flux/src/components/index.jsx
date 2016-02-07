@@ -19,23 +19,13 @@ var page = React.createClass({
 
                 </head>
                 <body>
-                    <nav className="navbar navbar-default">
-                        <div className="container-fluid">
-                            <div className="navbar-header">
-                                <a className="navbar-brand" href="/">Meelz</a>
-                            </div>
-                            <div className="collapse navbar-collapse">
-                            {this.props.navs}
-                            </div>
-                        </div>
-                    </nav>
+
 
                     <div id="reactComponent">
                         {this.props.page}
                     </div>
 
                     <script dangerouslySetInnerHTML={innerHtml}></script>
-                    <script src={'/components/' + this.props.name + '.js'}></script>
 
                 </body>
             </html>
@@ -44,4 +34,4 @@ var page = React.createClass({
     }
 })
 
-module.exports = { page: React.createFactory(page) }
+module.exports = React.createFactory(page)

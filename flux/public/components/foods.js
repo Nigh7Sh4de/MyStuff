@@ -36080,22 +36080,40 @@ var FoodItemListPage = React.createClass({displayName: "FoodItemListPage",
 
         return (
             React.createElement("div", null, 
+                React.createElement("nav", {className: "navbar navbar-default"}, 
+                    React.createElement("div", {className: "container-fluid"}, 
+                        React.createElement("div", {className: "navbar-header"}, 
+                            React.createElement("a", {className: "navbar-brand", href: "/"}, "Meelz")
+                        ), 
+                        React.createElement("div", {className: "collapse navbar-collapse"}, 
+                            React.createElement(Navs, null)
+                        )
+                    )
+                ), 
+
                 React.createElement(ReactBootstrap.Table, {hover: true, style: {width: "1%", whiteSpace: "nowrap"}}, 
                     React.createElement(FoodItemList, {data: this.props.data})
-                )
+                ), 
+
+                React.createElement("script", {src: '/components/foods.js'})
+
             )
         );
     }
 });
 
-var navs = (
-    React.createElement("ul", {className: "nav navbar-nav"}, 
-        React.createElement("li", {key: "bk"}, React.createElement("a", {href: "/days"}, "Back")), 
-        React.createElement("li", {key: "cf"}, React.createElement("a", {href: "/foods/new"}, React.createElement("span", {className: "glyphicon glyphicon-plus"}), " Food"))
-    )
-);
+var Navs = React.createClass({displayName: "Navs",
+    render: function() {
+        return (
+            React.createElement("ul", {className: "nav navbar-nav"}, 
+                React.createElement("li", {key: "bk"}, React.createElement("a", {href: "/days"}, "Back")), 
+                React.createElement("li", {key: "cf"}, React.createElement("a", {href: "/foods/new"}, React.createElement("span", {className: "glyphicon glyphicon-plus"}), " Food"))
+            )
+        )
+    }
+});
 
-module.exports = { page: FoodItemListPage, navs: navs, name: 'foods' };
+module.exports = React.createFactory(FoodItemListPage);
 
 if (typeof window !== 'undefined') {
     window.onload = function() {

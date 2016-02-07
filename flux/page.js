@@ -15,7 +15,7 @@ var Page = {
 Page.default = Page.days;
 
 var render = function(page, params) {
-    var s = ReactDOM.renderToString(Page.index.page({page: React.createFactory(page.page)(params), pageParams: params, navs: page.navs, name: page.name}));
+    var s = ReactDOM.renderToString(Page.index({page: page(params), pageParams: params}));
     return s;
 }
 
