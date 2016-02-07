@@ -30,7 +30,7 @@ Page.Build = function(page, params, callback, dataOnly) {
         if (params == null) {
             _db.find('foods', {}, function(err, result) {
                 if (err != null)
-                    callback(err, doc);
+                    callback(err, result);
                 params = {
                     data: {
                         foods: result
@@ -43,10 +43,7 @@ Page.Build = function(page, params, callback, dataOnly) {
             _db.findOne('days', {_id: params['_id']}, function(err, doc) {
                 if (err != null)
                     callback(err, doc);
-                    // doc.food = doc.food.map(function(i) {
-                    //     return mongojs.ObjectId(i);
-                    // });
-                _db.find('foods', {_id: {$in: doc.food}}, function(err, result) {
+                _db.find('foods', doc.archive ? {_id: {$in: doc.food}} : {}, function(err, result) {
                     if (err != null)
                         callback(err, result);
                     params.data = {
