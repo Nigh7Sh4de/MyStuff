@@ -3,17 +3,7 @@ var ReactDOM = require('react-dom');
 var ReactBootstrap = require('react-bootstrap');
 var axios = require('axios');
 
-Array.prototype.findById = function(ID) {
-    for (var i=0;i<this.length;i++) {
-        if (this[i]._id == ID) {
-            return this[i];
-        }
-    }
-    return null;
-}
-
 CurrentDay = {};
-
 SetCurrentDay = function(day) {
     CurrentDay = day;
 }

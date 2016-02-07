@@ -34972,44 +34972,11 @@ module.exports = require('./lib/React');
 var React = require('react');
 var ReactDOM = require('react-dom');
 var ReactBootstrap = require('react-bootstrap');
-// var _db = require('../../db');
-// var _db = {
-//     _foods: [],
-//     _settings: {
-//         home_cols: []
-//     }
-// };
-// var _days = [];//_db._days;
-// var _foods = _db._foods;
-// var _settings = _db._settings;
-
-var GetTotal = function(prop, day) {
-    var total = 0;
-    day.food.forEach(function (foodId) {
-        var food = _foods.findById(foodId);
-        total += food[prop] || 0;
-    });
-    return total;
-}
-
-Array.prototype.findById = function(ID) {
-    for (var i=0;i<this.length;i++) {
-        if (this[i]._id == ID) {
-            return this[i];
-        }
-    }
-    return null;
-}
 
 var DayItem = React.createClass({displayName: "DayItem",
-    viewfood: function() {
-        // CurrentDay = _days.findById(this.props._id);
-        // redraw(FoodItemListPage)
-    },
     render: function() {
-        var totals = this.props.data.home_cols.map(function(c) {
-            var t =  GetTotal(c, this.props.day);
-            return (React.createElement("td", {key: c}, t));
+        var totals = this.props.home_cols.map(function(c) {
+            return (React.createElement("td", {key: c}, this.props.day.totals[c]));
         }.bind(this));
         return (
             React.createElement("tr", {key: this.props.day._id}, 
@@ -35027,9 +34994,7 @@ var DayItem = React.createClass({displayName: "DayItem",
 
 var DayToday = React.createClass({displayName: "DayToday",
     render: function() {
-        // console.log('totals:::' + JSON.stringify(this.props.day.totals));
         var totals = this.props.home_cols.map(function(c) {
-            // console.log('totals[' + c + '] = ' + this.props.day.totals[c]);
             return (React.createElement("td", {key: c}, this.props.day.totals[c]));
         }.bind(this));
 
@@ -35053,7 +35018,6 @@ var DaysPage = React.createClass({displayName: "DaysPage",
 
         var c = 1;
         var days = this.props.data.days.map(function(d) {
-            // console.log(c + ':::'  + JSON.stringify(d));
             if (c++ < this.props.data.days.length)
                 return React.createElement(DayItem, {day: d, key: d._id, home_cols: this.props.data.home_cols})
             else {

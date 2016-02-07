@@ -3,11 +3,6 @@ var ReactDOM = require('react-dom');
 
 var page = React.createClass({
     render: function() {
-
-        // console.log(JSON.stringify(this.props.pageParams));
-        // console.log('GO FUCK YOURSELF WITH A CACTUS YOU PIECE OF SHIT!!!!!!');
-        // console.log(JSON.stringify({params: this.props.pageParams}));
-
         var innerHtml = {__html: 'window.APP_PROPS = ' + JSON.stringify(this.props.pageParams) + ';'};
 
         return(
@@ -19,7 +14,6 @@ var page = React.createClass({
 
                 </head>
                 <body>
-
 
                     <div id="reactComponent">
                         {this.props.page}
