@@ -13,6 +13,8 @@ Array.prototype.findIndexById = function(ID) {
 var _db = {
     update: function(collection, id, item, callback) {
         id = id.toString();
+        if (item._id != null)
+            delete item._id;
         db[collection].update({_id: mongojs.ObjectId(id)}, {$set:item}, {multi: false}, callback);
     },
 

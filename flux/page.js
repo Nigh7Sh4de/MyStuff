@@ -5,11 +5,13 @@ var _db = require('./db');
 var indexPage = require('./src/components/index');
 var daysPage = require('./src/components/days');
 var foodsPage = require('./src/components/foods');
+var editFoodPage = require('./src/components/editfood');
 
 var Page = {
     index: indexPage,
     days: daysPage,
-    foods: foodsPage
+    foods: foodsPage,
+    editfood: editFoodPage
 }
 
 Page.default = Page.days;
@@ -75,6 +77,26 @@ Page.Build = function(page, params, callback, dataOnly) {
         });
         _db.findOne('settings', {name: 'home_cols'}, function(err, doc) {
             params.data.home_cols = doc.value;
+            next(err);
+        })
+    }
+    else if (page == Page.editfood) {
+        var params = {}
+        var i = 0;
+        var next = function(err) {
+            i++;
+            if (err != null)
+                callback(err, result);
+            if (i >= 2) {
+                callback(null, render(page, params));
+            }
+        }
+        _db.findOne('foods', {id: params._id}, function(err, result) {
+            params.food = result;
+            next(null);//, render(page, { food: result }));
+        });
+        _db.findOne('settings', {name: 'props'}, function(err, doc) {
+            params.props = doc.value;
             next(err);
         })
     }

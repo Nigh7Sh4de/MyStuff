@@ -18,9 +18,6 @@ var FoodItem = React.createClass({
                 this.props.refresh();
         }.bind(this));
     },
-    editfood: function(e) {
-        redraw(CreateFoodPage,{food:this.props.food});
-    },
     render: function () {
         return (
             <tr>
@@ -32,9 +29,9 @@ var FoodItem = React.createClass({
                     {this.props.food.name}
                 </td>
                 <td>
-                    <button onClick={this.editfood} className="btn btn-default">
+                    <a href={'/editfood/' + this.props.food._id} className="btn btn-default">
                         <span className="glyphicon glyphicon-cog"></span>
-                    </button>
+                    </a>
                 </td>
             </tr>
         );
