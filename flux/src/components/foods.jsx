@@ -95,10 +95,13 @@ var FoodItemListPage = React.createClass({
 });
 
 var Navs = React.createClass({
+    back: function() {
+        window.history.back();
+    },
     render: function() {
         return (
             <ul className="nav navbar-nav">
-                <li key="bk"><a href="/days">Back</a></li>
+                <li key="bk"><a href="#" onClick={this.back}>Back</a></li>
                 <li key="cf"><a href="/foods/new"><span className="glyphicon glyphicon-plus"></span> Food</a></li>
             </ul>
         )
