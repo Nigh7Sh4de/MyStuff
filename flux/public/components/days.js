@@ -35032,7 +35032,7 @@ var DaysPage = React.createClass({displayName: "DaysPage",
         return (
             React.createElement("div", null, 
 
-                React.createElement("nav", {className: "navbar navbar-default"}, 
+                React.createElement("nav", {className: "navbar navbar-default", style: {marginBottom: 0}}, 
                     React.createElement("div", {className: "container-fluid"}, 
                         React.createElement("div", {className: "navbar-header"}, 
                             React.createElement("a", {className: "navbar-brand", href: "/"}, "Meelz")
@@ -35042,6 +35042,7 @@ var DaysPage = React.createClass({displayName: "DaysPage",
                         )
                     )
                 ), 
+
 
                 React.createElement(ReactBootstrap.Table, {responsive: true, hover: true, style: {width:"1%", whiteSpace:"nowrap"}}, 
                     React.createElement("thead", null, 

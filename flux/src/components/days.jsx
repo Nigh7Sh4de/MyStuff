@@ -61,7 +61,7 @@ var DaysPage = React.createClass({
         return (
             <div>
 
-                <nav className="navbar navbar-default">
+                <nav className="navbar navbar-default" style={{marginBottom: 0}}>
                     <div className="container-fluid">
                         <div className="navbar-header">
                             <a className="navbar-brand" href="/">Meelz</a>
@@ -71,6 +71,7 @@ var DaysPage = React.createClass({
                         </div>
                     </div>
                 </nav>
+
 
                 <ReactBootstrap.Table responsive hover style={{width:"1%", whiteSpace:"nowrap"}}>
                     <thead>
