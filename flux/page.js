@@ -29,15 +29,14 @@ Page.Build = function(page, params, callback, dataOnly) {
         return "404";
 
     if (page == Page.foods) {
+        var data = {};
         if (params == null) {
             _db.find('foods', {}, function(err, result) {
                 if (err != null)
                     callback(err, result);
-                data = {
-                    data: {
-                        foods: result
-                    }
-                };
+                data.data = {
+                    foods: result
+                }
                 callback(null, dataOnly ? data : render(page, data));
             });
         } else if (params._id != null) {
