@@ -69,10 +69,10 @@ var FoodItemList = React.createClass({
 var FoodItemListPage = React.createClass({
     render: function() {
         SetCurrentDay(this.props.data.day);
-
+        var foodname = this.props.data.day == null ? 'All food' : this.props.data.day.date;
         return (
             <div>
-                <nav className="navbar navbar-default">
+                <nav className="navbar navbar-default" style={{marginBottom: 0}}>
                     <div className="container-fluid">
                         <div className="navbar-header">
                             <a className="navbar-brand" href="/">Meelz</a>
@@ -82,6 +82,11 @@ var FoodItemListPage = React.createClass({
                         </div>
                     </div>
                 </nav>
+
+                <ul className="breadcrumb">
+                    <li><a href="/days">Home</a></li>
+                    <li className="active">{foodname}</li>
+                </ul>
 
                 <ReactBootstrap.Table hover style={{width: "1%", whiteSpace: "nowrap"}}>
                     <FoodItemList data={this.props.data} />
@@ -95,13 +100,9 @@ var FoodItemListPage = React.createClass({
 });
 
 var Navs = React.createClass({
-    back: function() {
-        window.history.back();
-    },
     render: function() {
         return (
             <ul className="nav navbar-nav">
-                <li key="bk"><a href="#" onClick={this.back}>Back</a></li>
                 <li key="cf"><a href="/foods/new"><span className="glyphicon glyphicon-plus"></span> Food</a></li>
             </ul>
         )

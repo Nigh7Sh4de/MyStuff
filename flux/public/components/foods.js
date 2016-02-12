@@ -36064,10 +36064,10 @@ var FoodItemList = React.createClass({displayName: "FoodItemList",
 var FoodItemListPage = React.createClass({displayName: "FoodItemListPage",
     render: function() {
         SetCurrentDay(this.props.data.day);
-
+        var foodname = this.props.data.day == null ? 'All food' : this.props.data.day.date;
         return (
             React.createElement("div", null, 
-                React.createElement("nav", {className: "navbar navbar-default"}, 
+                React.createElement("nav", {className: "navbar navbar-default", style: {marginBottom: 0}}, 
                     React.createElement("div", {className: "container-fluid"}, 
                         React.createElement("div", {className: "navbar-header"}, 
                             React.createElement("a", {className: "navbar-brand", href: "/"}, "Meelz")
@@ -36076,6 +36076,11 @@ var FoodItemListPage = React.createClass({displayName: "FoodItemListPage",
                             React.createElement(Navs, null)
                         )
                     )
+                ), 
+
+                React.createElement("ul", {className: "breadcrumb"}, 
+                    React.createElement("li", null, React.createElement("a", {href: "/days"}, "Home")), 
+                    React.createElement("li", {className: "active"}, foodname)
                 ), 
 
                 React.createElement(ReactBootstrap.Table, {hover: true, style: {width: "1%", whiteSpace: "nowrap"}}, 
@@ -36090,13 +36095,9 @@ var FoodItemListPage = React.createClass({displayName: "FoodItemListPage",
 });
 
 var Navs = React.createClass({displayName: "Navs",
-    back: function() {
-        window.history.back();
-    },
     render: function() {
         return (
             React.createElement("ul", {className: "nav navbar-nav"}, 
-                React.createElement("li", {key: "bk"}, React.createElement("a", {href: "#", onClick: this.back}, "Back")), 
                 React.createElement("li", {key: "cf"}, React.createElement("a", {href: "/foods/new"}, React.createElement("span", {className: "glyphicon glyphicon-plus"}), " Food"))
             )
         )
