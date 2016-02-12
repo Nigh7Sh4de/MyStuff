@@ -33,12 +33,12 @@ Page.Build = function(page, params, callback, dataOnly) {
             _db.find('foods', {}, function(err, result) {
                 if (err != null)
                     callback(err, result);
-                params = {
+                data = {
                     data: {
                         foods: result
                     }
                 };
-                callback(null, dataOnly ? params : render(page, params));
+                callback(null, dataOnly ? data : render(page, data));
             });
         } else if (params._id != null) {
             var _foods = [];
@@ -48,18 +48,18 @@ Page.Build = function(page, params, callback, dataOnly) {
                 _db.find('foods', doc.archive ? {_id: {$in: doc.food}} : {}, function(err, result) {
                     if (err != null)
                         callback(err, result);
-                    params.data = {
+                    data.data = {
                         foods: result,
                         day: doc
                     };
-                    callback(null, dataOnly ? params : render(page, params));
+                    callback(null, dataOnly ? data : render(page, data));
                 });
             });
 
         }
     }
     else if (page == Page.days) {
-        var params = {
+        var data = {
             data: {}
         }
         var i = 0;
@@ -68,35 +68,35 @@ Page.Build = function(page, params, callback, dataOnly) {
             if (err != null)
                 callback(err, result);
             if (i >= 2) {
-                callback(null, render(page, params));
+                callback(null, render(page, data));
             }
         }
         _db.find('days', {}, function(err, result) {
-            params.data.days = result;
+            data.data.days = result;
             next(err);
         });
         _db.findOne('settings', {name: 'home_cols'}, function(err, doc) {
-            params.data.home_cols = doc.value;
+            data.data.home_cols = doc.value;
             next(err);
         })
     }
     else if (page == Page.editfood) {
-        var params = {}
+        var data = {}
         var i = 0;
         var next = function(err) {
             i++;
             if (err != null)
                 callback(err, result);
             if (i >= 2) {
-                callback(null, render(page, params));
+                callback(null, render(page, data));
             }
         }
-        _db.findOne('foods', {id: params._id}, function(err, result) {
-            params.food = result;
+        _db.findOne('foods', {_id: params._id}, function(err, result) {
+            data.food = result;
             next(null);//, render(page, { food: result }));
         });
         _db.findOne('settings', {name: 'props'}, function(err, doc) {
-            params.props = doc.value;
+            data.props = doc.value;
             next(err);
         })
     }
