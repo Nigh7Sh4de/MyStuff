@@ -20156,13 +20156,9 @@ var CreateFoodPageNav = React.createClass({displayName: "CreateFoodPageNav",
     valid: function() {
         return this.props.createfoodpage.state.name && this.props.createfoodpage.valid(this.props.createfoodpage.state);
     },
-    back: function() {
-        window.history.back();
-    },
     render: function() {
         return (
             React.createElement("ul", {className: "nav navbar-nav"}, 
-                React.createElement("li", {key: "bk"}, React.createElement("a", {href: "#", onClick: this.back}, "Back")), 
                 React.createElement("li", {key: "cf", className: this.valid() ? "" : "disabled", onClick: this.handleClick}, React.createElement("a", {href: "#"}, this.props.createfoodpage.edit() ? "Save" : "Create"))
             )
         )

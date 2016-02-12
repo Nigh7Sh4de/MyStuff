@@ -99,13 +99,9 @@ var CreateFoodPageNav = React.createClass({
     valid: function() {
         return this.props.createfoodpage.state.name && this.props.createfoodpage.valid(this.props.createfoodpage.state);
     },
-    back: function() {
-        window.history.back();
-    },
     render: function() {
         return (
             <ul className="nav navbar-nav">
-                <li key="bk"><a href='#' onClick={this.back}>Back</a></li>
                 <li key="cf" className={this.valid() ? "" : "disabled"} onClick={this.handleClick}><a href="#">{this.props.createfoodpage.edit() ? "Save" : "Create"}</a></li>
             </ul>
         )
