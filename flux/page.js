@@ -16,6 +16,8 @@ var Page = {
 
 Page.default = Page.days;
 
+var CurrentDay = null;
+
 var render = function(page, params) {
     var s = ReactDOM.renderToString(Page.index({page: page(params), pageParams: params}));
     return s;
@@ -37,6 +39,7 @@ Page.Build = function(page, params, callback, dataOnly) {
                 data.data = {
                     foods: result
                 }
+                CurrentDay = null;
                 callback(null, dataOnly ? data : render(page, data));
             });
         } else if (params._id != null) {
@@ -44,6 +47,7 @@ Page.Build = function(page, params, callback, dataOnly) {
             _db.findOne('days', {_id: params['_id']}, function(err, doc) {
                 if (err != null)
                     callback(err, doc);
+                CurrentDay = doc;
                 _db.find('foods', doc.archive ? {_id: {$in: doc.food}} : {}, function(err, result) {
                     if (err != null)
                         callback(err, result);
@@ -80,7 +84,9 @@ Page.Build = function(page, params, callback, dataOnly) {
         })
     }
     else if (page == Page.editfood) {
-        var data = {}
+        var data = {
+            CurrentDay: CurrentDay
+        }
         var i = 0;
         var next = function(err) {
             i++;

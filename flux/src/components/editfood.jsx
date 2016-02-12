@@ -51,9 +51,11 @@ var CreateFoodPage = React.createClass({
             }
             return <EditableInfoProperty classes={classes} onchange={this.handleChange} ref={p} key={p} name={p} value={this.state[p]} />
         }.bind(this))
+        var date = this.props.CurrentDay == null ? 'All food' : this.props.CurrentDay.date;
+        var backUrl = this.props.CurrentDay == null ? '/foods' : '/foods/' + this.props.CurrentDay._id;
         return (
             <div>
-                <nav className="navbar navbar-default">
+                <nav className="navbar navbar-default" style={{marginBottom: 0}}>
                     <div className="container-fluid">
                         <div className="navbar-header">
                             <a className="navbar-brand" href="/">Meelz</a>
@@ -63,6 +65,12 @@ var CreateFoodPage = React.createClass({
                         </div>
                     </div>
                 </nav>
+
+                <ul className="breadcrumb">
+                    <li><a href="/days">Home</a></li>
+                    <li><a href={backUrl}>{date}</a></li>
+                    <li className="active">{this.state.name}</li>
+                </ul>
 
                 <form>
                     {props}

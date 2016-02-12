@@ -20108,9 +20108,11 @@ var CreateFoodPage = React.createClass({displayName: "CreateFoodPage",
             }
             return React.createElement(EditableInfoProperty, {classes: classes, onchange: this.handleChange, ref: p, key: p, name: p, value: this.state[p]})
         }.bind(this))
+        var date = this.props.CurrentDay == null ? 'All food' : this.props.CurrentDay.date;
+        var backUrl = this.props.CurrentDay == null ? '/foods' : '/foods/' + this.props.CurrentDay._id;
         return (
             React.createElement("div", null, 
-                React.createElement("nav", {className: "navbar navbar-default"}, 
+                React.createElement("nav", {className: "navbar navbar-default", style: {marginBottom: 0}}, 
                     React.createElement("div", {className: "container-fluid"}, 
                         React.createElement("div", {className: "navbar-header"}, 
                             React.createElement("a", {className: "navbar-brand", href: "/"}, "Meelz")
@@ -20119,6 +20121,12 @@ var CreateFoodPage = React.createClass({displayName: "CreateFoodPage",
                             React.createElement(CreateFoodPageNav, {createfoodpage: this})
                         )
                     )
+                ), 
+
+                React.createElement("ul", {className: "breadcrumb"}, 
+                    React.createElement("li", null, React.createElement("a", {href: "/days"}, "Home")), 
+                    React.createElement("li", null, React.createElement("a", {href: backUrl}, date)), 
+                    React.createElement("li", {className: "active"}, this.state.name)
                 ), 
 
                 React.createElement("form", null, 
