@@ -15,11 +15,7 @@ var port = 8080;
 app.use(express.static('public'));
 
 app.get('/', function(req, res) {
-    Page.Build('default', null, function(err, result) {
-        if (err != null)
-            res.send(err);
-        res.send(result);
-    });
+    res.redirect('/days')
 });
 
 app.get('/:page', function(req, res) {
