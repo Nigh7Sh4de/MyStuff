@@ -1,5 +1,5 @@
 var mongojs = require('mongojs');
-var db = mongojs('meelz', ['foods', 'days', 'settings']);
+var db = mongojs('meelz', ['foods', 'days', 'settings', 'test']);
 
 Array.prototype.findIndexById = function(ID) {
     for (var i=0;i<this.length;i++) {
@@ -16,6 +16,14 @@ var _db = {
         if (item._id != null)
             delete item._id;
         db[collection].update({_id: mongojs.ObjectId(id)}, {$set:item}, {multi: false}, callback);
+    },
+
+    post: function(collection, item, callback) {
+        if (item == null)
+            callback({error: "NULL VALUE", message: "Cannot insert NULL doc"}, item);
+        if (item._id != null)
+            delete item._id;
+        db[collection].insert(item, callback);
     },
 
     find: function(collection, search, callback) {
@@ -38,6 +46,9 @@ var _db = {
                     var next = function() {
                         c++;
                         if (c >= days.length) {
+                            mappedDays.sort(function (a, b) {
+                                return a.date < b.date;
+                            });
                             callback(err, mappedDays);
                         }
                     }
