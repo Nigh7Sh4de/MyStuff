@@ -47,17 +47,18 @@ var DayToday = React.createClass({
 
 var DaysPage = React.createClass({
     somevar: 123,
-    addday: function(day) {
-        this.props.data.days.unshift(day);
+    refresh: function (_day) {
+        this.props.data.days.unshift(_day);
         this.forceUpdate();
     },
     render: function() {
+
         var c = 1;
         var days = this.props.data.days.map(function(d) {
-            if (c++ > 1)
-                return <DayItem day={d} key={d._id} home_cols={this.props.data.home_cols} />
-            else {
+            if (c++ == 1)
                 return <DayToday day={d} key={d._id} home_cols={this.props.data.home_cols} />
+            else {
+                return <DayItem day={d} key={d._id} home_cols={this.props.data.home_cols} />
             }
         }.bind(this));
 
@@ -74,7 +75,7 @@ var DaysPage = React.createClass({
                             <a className="navbar-brand" href="/">Meelz</a>
                         </div>
                         <div className="collapse navbar-collapse">
-                            <Navs dayspage={this} />
+                            <Navs refresh={this.refresh} />
                         </div>
                     </div>
                 </nav>
@@ -101,33 +102,38 @@ var DaysPage = React.createClass({
 
 var Navs = React.createClass({
     createday: function(e) {
-        if (e.target.id != "override" && CurrentDay.date == new Date().toDateString()) {
-            this.open();
-            return;
-        }
-        console.log('Ready to create new day');
-        CurrentDay["archive"] = true;
-        axios.all([
-            axios.patch('/days/' + CurrentDay._id, { archive: true }),
+        var then = function (response) {
+            if (response instanceof Array)
+                response = {
+                    data: response[1].data
+                };
+            if (this.props.refresh != null)
+                this.props.refresh(Object.assign({totals: {}}, response.data.result));
+        }.bind(this);
+
+        if (CurrentDay == null) {
             axios.post('/days', {
                 date: new Date().toDateString(),
                 food: [],
-                archive: false
-            })
-        ]).then(function (response) {
-            console.log(response);
+                fulldate: Date.now()
+            }).then(then);
+        } else if (e.target.id != "override" && CurrentDay.date == new Date().toDateString()) {
+            this.open();
+            return;
+        }
+        else {
+            CurrentDay["archive"] = true;
+            axios.all([
+                axios.patch('/days/' + CurrentDay._id, { archive: true }),
+                axios.post('/days', {
+                    date: new Date().toDateString(),
+                    food: [],
+                    fulldate: Date.now()
+                })
+            ]).then(then);
+        }
 
-            // (function () {
-            //     this.addday(response[1].data.result);
-            // }.bind(this.props.dayspage))();
 
-            this.props.dayspage.addday(Object.assign(response[1].data.result, {totals: []}));
-
-
-
-            // if (this.props.refresh != null)
-                // this.props.refresh();
-        }.bind(this))
         //  _days.push(CurrentDay = {
             // id: _days.generateId(),
             // food: [],

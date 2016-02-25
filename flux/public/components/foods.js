@@ -36044,14 +36044,8 @@ var FoodItemList = React.createClass({displayName: "FoodItemList",
             var count = CurrentDay.food.filter(function(d) {
                 return d == food._id;
             }).length;
-            return React.createElement(FoodItem, {count: count, refresh: this.refresh, food: food, key: food.name})
+            return React.createElement(FoodItem, {count: count, refresh: this.refresh, food: food, key: food._id})
         }.bind(this));
-
-        if (CurrentDay != null && CurrentDay.archive) {
-            for (var i=0,j=0;i<foods.length;i++,j++)
-                if (CurrentDay.food.indexOf(j) < 0)
-                    foods.splice(i--, 1);
-        }
 
         return (
                 React.createElement("tbody", null, 

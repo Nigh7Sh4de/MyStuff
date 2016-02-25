@@ -47,7 +47,7 @@ var _db = {
                         c++;
                         if (c >= days.length) {
                             mappedDays.sort(function (a, b) {
-                                return a.date < b.date;
+                                return a.fulldate < b.fulldate;
                             });
                             callback(err, mappedDays);
                         }
