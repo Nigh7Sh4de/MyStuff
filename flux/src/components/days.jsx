@@ -134,14 +134,7 @@ var Navs = React.createClass({
         }
 
 
-        //  _days.push(CurrentDay = {
-            // id: _days.generateId(),
-            // food: [],
-            // date: new Date().toDateString()
-        // });
         this.close();
-        // dayspage.forceUpdate();
-        // redraw(DaysPage);
     },
     open: function() {
         this.setState({showModal: true});

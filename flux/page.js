@@ -88,18 +88,24 @@ Page.Build = function(page, params, callback, dataOnly) {
             CurrentDay: CurrentDay
         }
         var i = 0;
+        var EXIT_COUNT = 2;
         var next = function(err) {
             i++;
             if (err != null)
                 callback(err, result);
-            if (i >= 2) {
+            if (i >= EXIT_COUNT) {
                 callback(null, render(page, data));
             }
         }
-        _db.findOne('foods', {_id: params._id}, function(err, result) {
-            data.food = result;
-            next(null);//, render(page, { food: result }));
-        });
+        if (params == null || params._id == 'new' || params._id == null) {
+            data.food = null;
+            // data.food = {};
+            next();
+        } else
+            _db.findOne('foods', {_id: params._id}, function(err, result) {
+                data.food = result;
+                next(null);//, render(page, { food: result }));
+            });
         _db.findOne('settings', {name: 'props'}, function(err, doc) {
             data.props = doc.value;
             next(err);

@@ -97,7 +97,7 @@ var Navs = React.createClass({
     render: function() {
         return (
             <ul className="nav navbar-nav">
-                <li key="cf"><a href="/foods/new"><span className="glyphicon glyphicon-plus"></span> Food</a></li>
+                <li key="cf"><a href="/editfood/new"><span className="glyphicon glyphicon-plus"></span> Food</a></li>
             </ul>
         )
     }

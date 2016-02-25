@@ -27,7 +27,7 @@ app.get('/:page', function(req, res) {
 });
 
 app.get('/:page/:_id', function(req, res) {
-    Page.Build(req.params.page, { _id: req.params._id }, function(err, result) {
+    Page.Build(req.params.page, req.params._id == 'new' ? null : { _id: req.params._id }, function(err, result) {
         if (err != null)
             res.send(err);
         res.send(result);

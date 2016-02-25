@@ -2,6 +2,9 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var axios = require('axios');
 
+var backUrl = "/";
+var newFood = true;
+
 var EditableInfoProperty = React.createClass({
     render: function() {
         return (
@@ -16,11 +19,8 @@ var EditableInfoProperty = React.createClass({
 
 var CreateFoodPage = React.createClass({
     getInitialState: function() {
-        return this.props.food;
-        //  || {
-        //     name: this.props.food != null ? this.props.food.name : null,
-        //     id: this.props.food != null ? this.props.food.id : _foods.generateId()
-        // }
+        newFood = this.props.food == null;
+        return this.props.food || {};
     },
     handleChange: function(e) {
         var state = this.state;
@@ -52,7 +52,7 @@ var CreateFoodPage = React.createClass({
             return <EditableInfoProperty classes={classes} onchange={this.handleChange} ref={p} key={p} name={p} value={this.state[p]} />
         }.bind(this))
         var date = this.props.CurrentDay == null ? 'All food' : this.props.CurrentDay.date;
-        var backUrl = this.props.CurrentDay == null ? '/foods' : '/foods/' + this.props.CurrentDay._id;
+        backUrl = this.props.CurrentDay == null ? '/foods' : '/foods/' + this.props.CurrentDay._id;
         return (
             <div>
                 <nav className="navbar navbar-default" style={{marginBottom: 0}}>
@@ -69,7 +69,7 @@ var CreateFoodPage = React.createClass({
                 <ul className="breadcrumb">
                     <li><a href="/days">Home</a></li>
                     <li><a href={backUrl}>{date}</a></li>
-                    <li className="active">{this.state.name}</li>
+                    <li className="active">{this.state.name || 'New'}</li>
                 </ul>
 
                 <form>
@@ -87,22 +87,16 @@ var CreateFoodPageNav = React.createClass({
         event.preventDefault();
         if (!this.valid())
             return false;
-
-        var duplicates = false;
-
-        axios.patch('/foods/' + this.props.createfoodpage.props.food._id, this.props.createfoodpage.state).then(function (response) {
-            console.log('Saved.');
-        }.bind(this));
-
-        // var foundFood = this.props.createfoodpage.props.food != null ? _foods.findById(this.props.createfoodpage.props.food.id)
-        //                 : null;
-        // if (foundFood == null) {
-        //     _foods.push(this.props.createfoodpage.state);
-        // }
-        // else {
-            // _foods[_foods.indexOf(foundFood)] = this.props.createfoodpage.state;
-        // }
-        // redraw(FoodItemListPage);
+        if (newFood) {
+            console.log('Creating new food...');
+            axios.post('/foods', this.props.createfoodpage.state).then(function(res) {
+                window.location.assign(backUrl);
+            });
+        }
+        else
+            axios.patch('/foods/' + this.props.createfoodpage.props.food._id, this.props.createfoodpage.state).then(function (response) {
+                window.location.assign(backUrl);
+            }.bind(this));
     },
     valid: function() {
         return this.props.createfoodpage.state.name && this.props.createfoodpage.valid(this.props.createfoodpage.state);

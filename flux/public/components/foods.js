@@ -36092,7 +36092,7 @@ var Navs = React.createClass({displayName: "Navs",
     render: function() {
         return (
             React.createElement("ul", {className: "nav navbar-nav"}, 
-                React.createElement("li", {key: "cf"}, React.createElement("a", {href: "/foods/new"}, React.createElement("span", {className: "glyphicon glyphicon-plus"}), " Food"))
+                React.createElement("li", {key: "cf"}, React.createElement("a", {href: "/editfood/new"}, React.createElement("span", {className: "glyphicon glyphicon-plus"}), " Food"))
             )
         )
     }
